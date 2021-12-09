@@ -10,6 +10,8 @@ def canUnlockAll(boxes):
     """
     if type(boxes) is not list:
         return False
+    if len(boxes) == 0:
+        return False
     for x, box in enumerate(boxes):
         if type(box) is not list:
             return False
