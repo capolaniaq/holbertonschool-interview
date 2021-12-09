@@ -4,9 +4,6 @@ This script is used to generate lockboxes
 """
 
 
-from typing import KeysView
-
-
 def canUnlockAll(boxes):
     """
     This function checks if the boxes can be unlocked
