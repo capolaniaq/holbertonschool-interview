@@ -4,6 +4,9 @@ This script is used to generate lockboxes
 """
 
 
+from typing import KeysView
+
+
 def canUnlockAll(boxes):
     """
     This function checks if the boxes can be unlocked
@@ -12,10 +15,13 @@ def canUnlockAll(boxes):
         return False
     if len(boxes) == 0:
         return False
+    Keys = []
     for x, box in enumerate(boxes):
-        if type(box) is not list:
+        if x < len(boxes) - 1:
+            for key in box:
+                if key not in Keys:
+                    Keys.append(key)
+    for i, box in enumerate(boxes):
+        if i != 0 and i not in Keys:
             return False
-        if len(box) == 0 and x != len(boxes) - 1:
-            return False
-        if x == len(boxes) - 1:
-            return True
+    return True
