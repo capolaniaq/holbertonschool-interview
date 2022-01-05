@@ -21,4 +21,4 @@ def minOperations(n):
     elif n % 5 == 0 and n != 5:
         return minOperations(int(n / 5)) + 5
     else:
-        return minOperations(int(n - 1)) + 1
+        return n
