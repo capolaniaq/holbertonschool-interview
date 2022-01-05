@@ -3,6 +3,7 @@
 Minium steps to reach a target number
 """
 
+
 def minOperations(n):
     """
     Minimum Operations functions
