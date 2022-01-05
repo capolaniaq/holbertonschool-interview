@@ -10,6 +10,8 @@ def minOperations(n):
     """
     if type(n) is not int:
         return 0
+    elif n < 0:
+        return 0
     if n == 1:
         return 1
     if n % 2 == 0 and n != 2:
