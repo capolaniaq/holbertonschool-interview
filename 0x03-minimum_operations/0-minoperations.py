@@ -8,15 +8,16 @@ def minOperations(n):
     """
     Minimum Operations functions
     """
-    if not isinstance(n, int):
+    if type(n) is not int:
         return 0
     if n <= 0 or n == 1 or n is None:
         return 0
-    if n % 2 == 0 and n != 2:
-        return minOperations(int(n / 2)) + 2
-    elif n % 3 == 0 and n != 3:
-        return minOperations(int(n / 3)) + 3
-    elif n % 5 == 0 and n != 5:
-        return minOperations(int(n / 5)) + 5
-    else:
-        return int(n)
+    op = 0
+    div = 2
+    while div <= n:
+        if n % div == 0:
+            op += div
+            n = n // div
+        else:
+            div += 1
+    return op
