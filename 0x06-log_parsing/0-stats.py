@@ -24,14 +24,21 @@ if __name__ == "__main__":
 
     try:
         for line in sys.stdin:
-            separator = line.split(' ')
-            if separator[-2] in status_code:
-                status_code[separator[-2]] += 1
-                file_size = file_size + int(separator[-1])
-                total_lines += 1
+            total_lines += 1
+            ln = line.split(" ")
+            try:
+                if ln[-2] in status_code:
+                    status_code[ln[-2]] += 1
+            except IndexError:
+                pass
+            try:
+                file_size += int(ln[-1])
+            except ValueError:
+                pass
+
             if total_lines % 10 == 0:
                 print_values(status_code, file_size)
-
+        print_values(status_code, file_size)
     except (KeyboardInterrupt, SystemExit):
         print_values(status_code, file_size)
         raise
