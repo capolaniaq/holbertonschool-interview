@@ -21,21 +21,23 @@ if __name__ == "__main__":
         for key, value in status_code.items():
             if value != 0:
                 print("{}: {}".format(key, value))
+
     try:
         for line in sys.stdin:
             if total_lines % 10 == 0:
                 print_values(status_code, file_size)
-                total_lines = 0
-            total_lines += 1
-            ln = line.split(" ")
+                total_lines = 1
+            else:
+                total_lines += 1
+            ln = line.split()
+            try:
+                file_size += int(ln[-1])
+            except ValueError:
+                pass
             try:
                 if ln[-2] in status_code:
                     status_code[ln[-2]] += 1
             except IndexError:
-                pass
-            try:
-                file_size += int(ln[-1])
-            except ValueError:
                 pass
         print_values(status_code, file_size)
 
