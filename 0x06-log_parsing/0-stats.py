@@ -3,7 +3,6 @@
 Script that reads stdin line by line and computes metrics:
 """
 
-
 import sys
 
 
@@ -26,9 +25,10 @@ if __name__ == "__main__":
     try:
         for line in sys.stdin:
             separator = line.split(' ')
-            status_code[int(separator[-2])] += 1
-            file_size = file_size + int(separator[-1])
-            total_lines += 1
+            if int(separator[-2]) in status_code:
+                status_code[int(separator[-2])] += 1
+                file_size = file_size + int(separator[-1])
+                total_lines += 1
             if total_lines % 10 == 0:
                 print_values(status_code, file_size)
 
