@@ -1,41 +1,37 @@
 #!/usr/bin/python3
 """
-Read the log file and print the stats
+Script that reads stdin line by line and computes metrics:
 """
 
+import sys
+
+
 if __name__ == "__main__":
-    import sys
 
-    c = fileSize = 0
-    statCount = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
-                 "404": 0, "405": 0, "500": 0}
+    status_code = {"200": 0, "301": 0, "400": 0, "401": 0,
+                   "403": 0, "404": 0, "405": 0, "500": 0}
+    file_size = 0
+    total_lines = 0
 
-    def handleTen(statCount, fileSize):
-        print("File size: {}".format(fileSize))
-        for key in sorted(statCount.keys()):
-            if statCount[key] == 0:
-                continue
-            print("{}: {}".format(key, statCount[key]))
+    def print_values(status_code={}, file_size=0):
+        """
+        Prints the status code and the file size
+        """
+        print("File size: {}".format(file_size))
+        for key, value in status_code.items():
+            if value != 0:
+                print("{}: {}".format(key, value))
 
     try:
         for line in sys.stdin:
-            c += 1
-            split = line.split(" ")
-            try:
-                status = split[-2]
-                fileSize += int(split[-1])
-
-                if status in statCount:
-                    statCount[status] += 1
-            except Exception:
-                pass
-
-            if c % 10 == 0:
-                handleTen(statCount, fileSize)
-
-        else:
-            handleTen(statCount, fileSize)
+            separator = line.split(' ')
+            if separator[-2] in status_code:
+                status_code[separator[-2]] += 1
+                file_size = file_size + int(separator[-1])
+                total_lines += 1
+            if total_lines % 10 == 0:
+                print_values(status_code, file_size)
 
     except (KeyboardInterrupt, SystemExit):
-        handleTen(statCount, fileSize)
+        print_values(status_code, file_size)
         raise
