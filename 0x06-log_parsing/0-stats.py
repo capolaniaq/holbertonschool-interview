@@ -17,13 +17,16 @@ if __name__ == "__main__":
         """
         Prints the status code and the file size
         """
-        print("File size: {}".format(file_size))
-        for key, value in status_code.items():
-            if value != 0:
-                print("{}: {}".format(key, value))
-
+        if file_size != 0:
+            print("File size: {}".format(file_size))
+            for key, value in status_code.items():
+                if value != 0:
+                    print("{}: {}".format(key, value))
     try:
         for line in sys.stdin:
+            if total_lines % 10 == 0:
+                print_values(status_code, file_size)
+                total_lines = 0
             total_lines += 1
             ln = line.split(" ")
             try:
@@ -35,9 +38,6 @@ if __name__ == "__main__":
                 file_size += int(ln[-1])
             except ValueError:
                 pass
-
-            if total_lines % 10 == 0:
-                print_values(status_code, file_size)
         print_values(status_code, file_size)
     except (KeyboardInterrupt, SystemExit):
         print_values(status_code, file_size)
