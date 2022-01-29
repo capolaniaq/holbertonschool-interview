@@ -20,7 +20,8 @@ for line in sys.stdin:
         if k % 10 == 0:
             print('File size: {}'.format(file_size))
             for key, value in status_code.items():
-                print('{}: {}'.format(key, value))
+                if value != 0:
+                    print('{}: {}'.format(key, value))
             status_code = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0,
                            404: 0, 405: 0, 500: 0}
             file_size = 0
