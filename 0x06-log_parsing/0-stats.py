@@ -6,41 +6,43 @@ Script that reads stdin line by line and computes metrics:
 import sys
 
 
-if __name__ == "__main__":
+codes = {}
+status_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
+count = 0
+size = 0
 
-    status_code = {"200": 0, "301": 0, "400": 0, "401": 0,
-                   "403": 0, "404": 0, "405": 0, "500": 0}
-    file_size = 0
-    total_lines = 0
+try:
+    for ln in sys.stdin:
+        if count == 10:
+            print("File size: {}".format(size))
+            for key in sorted(codes):
+                print("{}: {}".format(key, codes[key]))
+            count = 1
+        else:
+            count += 1
 
-    def print_values(status_code={}, file_size=0):
-        """
-        Prints the status code and the file size
-        """
-        print("File size: {}".format(file_size))
-        for key in sorted(status_code.keys()):
-            if status_code[key] != 0:
-                print("{}: {}".format(key, status_code[key]))
+        ln = ln.split()
 
-    try:
-        for line in sys.stdin:
-            if total_lines % 10 == 0:
-                print_values(status_code, file_size)
-                total_lines = 1
-            else:
-                total_lines += 1
-            ln = line.split()
-            try:
-                file_size += int(ln[-1])
-            except ValueError:
-                pass
-            try:
-                if ln[-2] in status_code:
-                    status_code[ln[-2]] += 1
-            except IndexError:
-                pass
-        print_values(status_code, file_size)
+        try:
+            size = size + int(ln[-1])
+        except (IndexError, ValueError):
+            pass
 
-    except (KeyboardInterrupt, SystemExit):
-        print_values(status_code, file_size)
-        raise
+        try:
+            if ln[-2] in status_codes:
+                if codes.get(ln[-2], -1) == -1:
+                    codes[ln[-2]] = 1
+                else:
+                    codes[ln[-2]] += 1
+        except IndexError:
+            pass
+
+    print("File size: {}".format(size))
+    for key in sorted(codes):
+        print("{}: {}".format(key, codes[key]))
+
+except KeyboardInterrupt:
+    print("File size: {}".format(size))
+    for key in sorted(codes):
+        print("{}: {}".format(key, codes[key]))
+    raise
