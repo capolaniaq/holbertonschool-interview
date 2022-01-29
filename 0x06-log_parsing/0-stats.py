@@ -18,9 +18,9 @@ if __name__ == "__main__":
         Prints the status code and the file size
         """
         print("File size: {}".format(file_size))
-        for key, value in status_code.items():
-            if value != 0:
-                print("{}: {}".format(key, value))
+        for key in sorted(status_code.keys()):
+            if status_code[key] != 0:
+                print("{}: {}".format(key, status_code[key]))
 
     try:
         for line in sys.stdin:
