@@ -28,12 +28,17 @@ if __name__ == "__main__":
             total_lines += 1
             ln = line.split()
             try:
-                status = int(ln[-2])
                 file_size += int(ln[-1])
+            except ValueError:
+                pass
+
+            try:
+                status = int(ln[-2])
                 if status in status_code:
                     status_code[status] += 1
             except ValueError:
                 pass
+
         print_values(status_code, file_size)
 
     except KeyboardInterrupt:
