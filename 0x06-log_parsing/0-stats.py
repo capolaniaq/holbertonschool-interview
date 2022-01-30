@@ -8,11 +8,12 @@ import sys
 
 if __name__ == "__main__":
 
-    status_code = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+    status_code = {"200": 0, "301": 0, "400": 0, "401": 0,
+                   "403": 0, "404": 0, "405": 0, "500": 0}
     file_size = 0
     total_lines = 0
 
-    def print_values(status_code={}, file_size=0):
+    def print_values(status_code, file_size):
         """
         Prints the status code and the file size
         """
@@ -34,9 +35,7 @@ if __name__ == "__main__":
                 pass
 
             try:
-                status = int(ln[-2])
-                if status in status_code:
-                    status_code[status] += 1
+                status_code[ln[-2]] += 1
             except ValueError:
                 pass
 
