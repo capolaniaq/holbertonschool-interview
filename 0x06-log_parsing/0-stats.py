@@ -27,17 +27,19 @@ if __name__ == "__main__":
                 print_values(status_code, file_size)
             total_lines += 1
             ln = line.split()
-            try:
-                file_size += int(ln[-1])
-            except ValueError:
-                pass
 
-            try:
-                status = int(ln[-2])
-                if status in status_code:
-                    status_code[status] += 1
-            except ValueError:
-                pass
+            if len(ln) == 9:
+                try:
+                    file_size += int(ln[-1])
+                except ValueError:
+                    pass
+
+                try:
+                    status = int(ln[-2])
+                    if status in status_code:
+                        status_code[status] += 1
+                except ValueError:
+                    pass
 
         print_values(status_code, file_size)
 
