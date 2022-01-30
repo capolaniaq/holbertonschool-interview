@@ -8,9 +8,8 @@ import sys
 
 if __name__ == "__main__":
 
-    status_code = {200: 0, 301: 0, 400: 0, 401: 0,
-                   403: 0, 404: 0, 405: 0, 500: 0}
-
+    status_code = {"200": 0, "301": 0, "400": 0, "401": 0,
+                   "403": 0, "404": 0, "405": 0, "500": 0}
     file_size = 0
     total_lines = 0
 
@@ -37,7 +36,7 @@ if __name__ == "__main__":
                 pass
 
             try:
-                if int(ln[-2]) in status_code:
+                if ln[-2] in status_code:
                     status_code[ln[-2]] += 1
             except:
                 pass
