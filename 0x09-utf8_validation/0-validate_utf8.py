@@ -4,6 +4,10 @@ UTF-8 Validation
 """
 
 
+from cgi import print_directory
+import re
+
+
 def validUTF8(data):
     """
     data is a list of integers
@@ -11,17 +15,18 @@ def validUTF8(data):
     encoding, else return False
     """
     byte_count = 0
+    for num in data:
+        print(bin(num >> 5))
     for i in data:
+        print(i >> 7)
         if byte_count == 0:
-            if i >> 5 == 0b110:
+            if i >> 5 == 0b110 or i >> 5 == 0b1110:
                 byte_count = 1
-            elif i >> 4 == 0b1110:
+            elif i >> 4 == 0b1110 or i >> 4 == 0b1111:
                 byte_count = 2
-            elif i >> 3 == 0b11110:
+            elif i >> 3 == 0b11110 or i >> 3 == 0b11111:
                 byte_count = 3
-            elif i >> 7 == 0:
-                byte_count = 0
-            else:
+            elif i >> 7 == 0b1:
                 return False
         else:
             if i >> 6 != 0b10:
