@@ -15,10 +15,7 @@ def validUTF8(data):
     encoding, else return False
     """
     byte_count = 0
-    for num in data:
-        print(bin(num >> 5))
     for i in data:
-        print(i >> 7)
         if byte_count == 0:
             if i >> 5 == 0b110 or i >> 5 == 0b1110:
                 byte_count = 1
