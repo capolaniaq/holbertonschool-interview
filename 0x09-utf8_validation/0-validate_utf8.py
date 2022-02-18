@@ -15,14 +15,14 @@ def validUTF8(data):
     encoding, else return False
     """
     byte_count = 0
- 
+
     for i in data:
         if byte_count == 0:
             if i >> 5 == 0b110 or i >> 5 == 0b1110:
                 byte_count = 1
-            elif i >> 4 == 0b1110 or i >> 4 == 0b1111:
+            elif i >> 4 == 0b1110:
                 byte_count = 2
-            elif i >> 3 == 0b11110 or i >> 3 == 0b11111:
+            elif i >> 3 == 0b11110:
                 byte_count = 3
             elif i >> 7 == 0b1:
                 return False
@@ -30,6 +30,4 @@ def validUTF8(data):
             if i >> 6 != 0b10:
                 return False
             byte_count -= 1
-        if byte_count == 0:
-            return True
     return byte_count == 0
