@@ -40,22 +40,25 @@ int slide_line(int *line, size_t size, int direction)
 			}
 			i++;
 		}
+		order_ceros_left(line, size);
 	}
-
-	order_ceros(line, size);
+	else
+	{
+		slide_line_right(line, size);
+		order_ceros_right(line, size);
+	}
 
 	return (1);
 }
 
-
 /**
- * order_ceros - order ceros in the array
+ * order_ceros_left - order ceros in the array
  * @line: array of integers
  * @size: size of the array
  *
  * Return: void
  */
-void order_ceros(int *line, size_t size)
+void order_ceros_left(int *line, size_t size)
 {
 	size_t i = 0, j = 0;
 
@@ -74,8 +77,76 @@ void order_ceros(int *line, size_t size)
 				}
 				j++;
 			}
-
 		}
 		i++;
+	}
+}
+
+/**
+ * slide_line_right - slide a line of integers
+ * @line: array of integers
+ * @size: size of the array
+ *
+ * Return: number of elements moved
+ */
+
+void slide_line_right(int *line, size_t size)
+{
+	int number = 0;
+	size_t j = 0;
+
+	while (size > 0)
+	{
+		if (line[size - 1] != 0)
+		{
+			number = line[size - 1];
+			j = size - 1;
+			while (j > 0)
+			{
+				if (line[j - 1] == number)
+				{
+					number = number * 2;
+					line[j - 1] = 0;
+					break;
+				}
+				j--;
+			}
+			line[size - 1] = number;
+			number = 0;
+		}
+		size--;
+	}
+}
+
+/**
+ * order_ceros_right - order ceros in the array
+ * @line: array of integers
+ * @size: size of the array
+ *
+ * Return: void
+ */
+
+void order_ceros_right(int *line, size_t size)
+{
+	size_t i = 0, j = 0;
+
+	i = size;
+	while (i > 0)
+	{
+		if (line[i - 1] == 0)
+		{
+			j = i - 1;
+			while (j > 0)
+			{
+				if (line[j - 1] != 0)
+				{
+					line[i - 1] = line[j - 1];
+					line[j - 1] = 0;
+					break;
+				}
+				j--;
+			}
+		}
+		i--;
 	}
 }

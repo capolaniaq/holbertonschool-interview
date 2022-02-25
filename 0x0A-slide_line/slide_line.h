@@ -9,7 +9,9 @@
 #include <stdlib.h>
 
 int slide_line(int *line, size_t size, int direction);
-void order_ceros(int *line, size_t size);
+void order_ceros_left(int *line, size_t size);
+void order_ceros_right(int *line, size_t size);
+void slide_line_right(int *line, size_t size);
 
 
 
