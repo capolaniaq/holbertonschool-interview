@@ -25,7 +25,7 @@ int slide_line(int *line, size_t size, int direction)
 			{
 				number = line[i];
 				j = i + 1;
-				while (j < size - 1)
+				while (j < size)
 				{
 					if (line[j] == number)
 					{
