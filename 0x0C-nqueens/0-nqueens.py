@@ -10,12 +10,15 @@ if len(sys.argv) != 2:
     print("Usage: nqueens N")
     exit(1)
 
-n = int(sys.argv[1])
+n = sys.argv[1]
 
-if type(n) is not int:
+try:
+    n = int(n)
+except:
     print("N must be a number")
     exit(1)
-elif n < 4:
+
+if n < 4:
     print("N must be at least 4")
     exit(1)
 
