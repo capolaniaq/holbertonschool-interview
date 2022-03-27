@@ -39,6 +39,7 @@ return (tree);
 /**
  * insert_node - Inserts a node in a binary tree
  * @tree: Pointer to the node to insert
+ * @value: Value to insert
  *
  * Return: Pointer to the new node
  */
