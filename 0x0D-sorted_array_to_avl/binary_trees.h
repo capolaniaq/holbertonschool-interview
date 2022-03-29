@@ -30,6 +30,7 @@ typedef struct binary_tree_s avl_t;
 void binary_tree_print(const binary_tree_t *tree);
 avl_t *sorted_array_to_avl(int *array, size_t size);
 void insert_node(avl_t **tree, int value);
+void search_node(avl_t **tree, int value);
 
 
 #endif

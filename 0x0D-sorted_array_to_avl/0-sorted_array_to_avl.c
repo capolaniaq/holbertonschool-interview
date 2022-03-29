@@ -45,43 +45,33 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 			idx = middle - middle;
 		else
 			idx = idx + 2;
-		insert_node(&tree, array[idx]);
+		search_node(&tree, array[idx]);
 	}
 
 	return (tree);
 }
 
 /**
- * insert_node - Inserts a node in a binary tree
+ * search_node - Inserts a node in a binary tree
  * @tree: Pointer to the node to insert
  * @value: Value to insert
  *
  * Return: Pointer to the new node
  */
 
-void insert_node(avl_t **tree, int value)
+void search_node(avl_t **tree, int value)
 {
-	avl_t *new_node;
 	avl_t *current;
 
 	if (!tree || !*tree)
 		return;
 
 	current = *tree;
-	new_node = malloc(sizeof(avl_t));
-
-	if (!new_node)
-		return;
-
-	new_node->n = value;
-	new_node->parent = current;
-	new_node->left = NULL;
-	new_node->right = NULL;
 
 	if (current->left == NULL)
-		current->left = new_node;
+		insert_node(&current, value);
 	else if (current->right == NULL)
-		current->right = new_node;
+		insert_node(&current, value);
 	else if (current->left->left == NULL || current->left->right == NULL)
 		insert_node(&current->left, value);
 	else if (current->right->left == NULL || current->right->right == NULL)
@@ -100,3 +90,33 @@ void insert_node(avl_t **tree, int value)
 		insert_node(&current->right->right, value);
 }
 
+/**
+ * insert_node - Inserts a node in a binary tree
+ * @tree: Pointer to the node to insert
+ * @value: Value to insert
+ *
+ * Return: Pointer to the new node
+ */
+
+void insert_node(avl_t **tree, int value)
+{
+	avl_t *new_node;
+	avl_t *current;
+
+	if (!tree || !*tree)
+		return;
+
+	new_node = malloc(sizeof(avl_t));
+	if (!new_node)
+		return;
+	new_node->n = value;
+	new_node->parent = *tree;
+	new_node->left = NULL;
+	new_node->right = NULL;
+
+	current = *tree;
+	if (current->left == NULL)
+		current->left = new_node;
+	else
+		current->right = new_node;
+}
