@@ -5,7 +5,6 @@ const url = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
 
 request.get(url, async (error, response, body) => {
   const characters = JSON.parse(body).characters;
-
   for (const character of characters) {
     const name = await new Promise((resolve, reject) => {
       request.get(character, (error, response, body) => {
