@@ -12,6 +12,7 @@ def rain(walls):
         return 0
     if [x for x in walls if x < 0]:
         return 0
+
     rain = 0
     low_wall = 0
 
@@ -24,4 +25,4 @@ def rain(walls):
         else:
             rain = rain + (walls[i]) * (i - low_wall - 1)
             low_wall = i
-    return rain
+    return 0
