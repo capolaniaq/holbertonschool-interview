@@ -4,25 +4,25 @@ Rain exercise
 """
 
 
-def rain(walls):
+def rain(arr):
     """
     Rain function
     """
-    if len(walls) == 0 or type(walls) != list:
-        return 0
-    if [x for x in walls if x < 0]:
-        return 0
+    n = len(arr)
+    left = [0]*n
 
-    rain = 0
-    low_wall = 0
+    right = [0]*n
 
-    for i in range(1, len(walls)):
-        if walls[i] == 0:
-            continue
-        elif walls[low_wall] <= walls[i]:
-            rain = rain + (walls[low_wall]) * (i - low_wall - 1)
-            low_wall = i
-        else:
-            rain = rain + (walls[i]) * (i - low_wall - 1)
-            low_wall = i
-    return rain
+    water = 0
+
+    left[0] = arr[0]
+    for i in range( 1, n):
+        left[i] = max(left[i-1], arr[i])
+
+    right[n-1] = arr[n-1]
+    for i in range(n-2, -1, -1):
+        right[i] = max(right[i + 1], arr[i])
+
+    for i in range(0, n):
+        water += min(left[i], right[i]) - arr[i]
+    return water
