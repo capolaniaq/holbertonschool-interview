@@ -8,6 +8,10 @@ def rain(walls):
     """
     Rain function
     """
+    if len(walls) == 0 or type(walls) != list:
+        return 0
+    if [x for x in walls if x < 0]:
+        return 0
     rain = 0
     low_wall = 0
 
