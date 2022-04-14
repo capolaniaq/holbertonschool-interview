@@ -10,8 +10,7 @@ def rain(walls):
     """
     if not walls or len(walls) == 0:
         return 0
-    if [x for x in walls if x < 0]:
-        return 0
+
     rain = 0
     low_wall = 0
 
