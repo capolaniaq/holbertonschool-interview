@@ -9,9 +9,9 @@ def rain(walls):
     Rain function
     """
     if len(walls) == 0 or type(walls) != list:
-        return 1
+        return 0
     if [x for x in walls if x < 0]:
-        return 1
+        return 0
 
     rain = 0
     low_wall = 0
@@ -25,4 +25,4 @@ def rain(walls):
         else:
             rain = rain + (walls[i]) * (i - low_wall - 1)
             low_wall = i
-    return 0
+    return rain
