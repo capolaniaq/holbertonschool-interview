@@ -4,25 +4,27 @@ Rain exercise
 """
 
 
-def rain(arr):
+def rain(walls):
     """
     Rain function
     """
-    n = len(arr)
+    if type(walls) is not list or len(walls) < 3:
+        return 0
+    n = len(walls)
     left = [0]*n
 
     right = [0]*n
 
     water = 0
 
-    left[0] = arr[0]
+    left[0] = walls[0]
     for i in range( 1, n):
-        left[i] = max(left[i-1], arr[i])
+        left[i] = max(left[i-1], walls[i])
 
-    right[n-1] = arr[n-1]
+    right[n-1] = walls[n-1]
     for i in range(n-2, -1, -1):
-        right[i] = max(right[i + 1], arr[i])
+        right[i] = max(right[i + 1], walls[i])
 
     for i in range(0, n):
-        water += min(left[i], right[i]) - arr[i]
+        water += min(left[i], right[i]) - walls[i]
     return water
