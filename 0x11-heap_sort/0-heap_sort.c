@@ -24,16 +24,16 @@ void heap_sort(int *array, size_t size)
 			if (child_a <= size - 1 && child_b >= size)
 			{
 				if (array[i] < array[child_a])
-					swap(array, i, child_a);
+					swap(array, i, child_a, size);
 			}
 			else if (child_b <= size - 1 && child_a <= size - 1)
 			{
 				if (array[child_a] > array[i] || array[child_b] > array[i])
 				{
 					if (array[child_a] > array[child_b])
-						swap(array, i, child_a);
+						swap(array, i, child_a, size);
 					else
-						swap(array, i, child_b);
+						swap(array, i, child_b, size);
 				}
 			}
 		}
@@ -54,7 +54,7 @@ void heap_sort(int *array, size_t size)
 		if (i == 0)
 			heapify = 1;
 	}
-	shift_down(array, size);
+	shift_down(array, size, size);
 }
 
 
@@ -67,14 +67,14 @@ void heap_sort(int *array, size_t size)
  * Return: void
  */
 
-void swap(int *array, size_t i, size_t child)
+void swap(int *array, size_t i, size_t child, size_t total_size)
 {
 	int tmp;
 
 	tmp = array[i];
 	array[i] = array[child];
 	array[child] = tmp;
-	print_array(array, 10);
+	print_array(array, total_size);
 }
 
 /**
@@ -85,7 +85,7 @@ void swap(int *array, size_t i, size_t child)
  * Return: void
  */
 
-void shift_down(int *array, size_t size)
+void shift_down(int *array, size_t size, size_t total_size)
 {
 	size_t i, child_a, child_b, check = 0;
 
@@ -95,16 +95,16 @@ void shift_down(int *array, size_t size)
 		if (child_a <= size - 1 && child_b >= size)
 		{
 			if (array[i] < array[child_a])
-				swap(array, i, child_a);
+				swap(array, i, child_a, total_size);
 		}
 		else if (child_b <= size - 1 && child_a <= size - 1)
 		{
 			if (array[child_a] > array[i] || array[child_b] > array[i])
 			{
 				if (array[child_a] > array[child_b])
-					swap(array, i, child_a);
+					swap(array, i, child_a, total_size);
 				else
-					swap(array, i, child_b);
+					swap(array, i, child_b, total_size);
 			}
 		}
 	}
@@ -123,11 +123,11 @@ void shift_down(int *array, size_t size)
 		}
 	}
 	if (i != size - 1)
-		shift_down(array, size);
-	swap(array, 0, size - 1);
-	check = check_array(array, size);
-	if (check == 1)
-		shift_down(array, size - 1);
+		shift_down(array, size, total_size);
+	swap(array, 0, size - 1, total_size);
+	check = check_array(array, total_size);
+	if (check == 1 || size > 2)
+		shift_down(array, size - 1, total_size);
 }
 
 
