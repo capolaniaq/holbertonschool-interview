@@ -56,7 +56,7 @@ int binarySearch(int *arr, size_t l, size_t r, int x)
 }
 
 /**
- * binary_search - Function that find parameter
+ * advanced_binary - Function that find parameter
  * @array: array to search
  * @size: size of the array
  * @value: integer indicated the value to search
