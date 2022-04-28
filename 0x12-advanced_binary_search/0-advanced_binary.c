@@ -47,9 +47,9 @@ int binarySearch(int *arr, size_t l, size_t r, int x)
 		if (arr[mid] == x && arr[mid - 1] != x)
 			return (mid);
 		if (arr[mid] == x && arr[mid - 1] == x)
-			return (binarySearch(arr, l, mid - 1, x));
+			return (binarySearch(arr, l, mid, x));
 		if (arr[mid] > x)
-			return (binarySearch(arr, l, mid - 1, x));
+			return (binarySearch(arr, l, mid, x));
 		return (binarySearch(arr, mid + 1, r, x));
 	}
 	return (-1);
