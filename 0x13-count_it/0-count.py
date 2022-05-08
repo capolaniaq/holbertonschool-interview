@@ -26,8 +26,13 @@ def count_words(subreddit, word_list, hot_dict={}, after=None, count=0):
             hot_dict[word] += 1
     count += 1
 
+
+
     if count < len(data['data']['children']):
         count_words(subreddit, word_list, hot_dict, after, count)
     else:
         for key, value in hot_dict.items():
-            print('{}: {}'.format(key, value))
+            if value != 0:
+                print('{}: {}'.format(key, value))
+            else:
+                pass
