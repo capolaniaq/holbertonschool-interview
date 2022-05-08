@@ -5,12 +5,14 @@ Count words in Reddit Api
 import requests
 
 
-def count_words(subreddit, word_list, hot_dict={}, after=None, count=0):
+def count_words(subreddit, word_list, hot_dict={}, after=''):
     """
     request to reddit api and count the number of words
     """
-    if after is None:
-        [hot_dict.update({x.lower(): 0}) for x in word_list]
+    if after == '':
+        word_list = [x.lower() for x in word_list]
+        hot_dict = {word: 0 for word in word_list}
+
     url = 'https://www.reddit.com/r/{}/hot.json?after={}'.format(subreddit,
                                                                  after)
     headers = {'User-Agent': 'My User Agent 1.0'}
@@ -21,17 +23,16 @@ def count_words(subreddit, word_list, hot_dict={}, after=None, count=0):
     data = response.json()
     after = data['data']['after']
 
-    for word in word_list:
-        if word in data['data']['children'][count]['data']['title'].lower():
-            hot_dict[word] += 1
-    count += 1
+    for post in data['data']['children']:
+        for word in word_list:
+            if word in post['data']['title'].lower():
+                hot_dict[word] += 1
 
-    if count < len(data['data']['children']):
-        count_words(subreddit, word_list, hot_dict, after, count)
-    else:
+    if after is None:
         for key, value in sorted(hot_dict.items(), key=lambda x: x[1],
-                                    reverse=True):
+                                 reverse=True):
             if value != 0:
                 print('{}: {}'.format(key, value))
-            else:
-                pass
+        return
+
+    count_words(subreddit, word_list, hot_dict, after)
