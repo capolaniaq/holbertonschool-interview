@@ -13,15 +13,18 @@ int heap_extract(heap_t **root)
 	heap_t *del_leaf = NULL;
 	heap_t *last_leaf = NULL;
 
-	if (*root == NULL )
+	if (*root == NULL)
 		return (0);
 
 	data = (*root)->n;
+
 	if ((*root)->left == NULL && (*root)->right == NULL)
 	{
+		del_leaf = *root;
+		*root = NULL;
+		free(del_leaf);
 		return (data);
 	}
-
 	last_leaf = sort_values(root);
 	del_leaf = find_last_leaf(root);
 
@@ -29,7 +32,7 @@ int heap_extract(heap_t **root)
 	{
 		if (del_leaf->parent->left == del_leaf)
 			del_leaf->parent->left = NULL;
-		else
+		else if (del_leaf->parent->right == del_leaf)
 			del_leaf->parent->right = NULL;
 		free(del_leaf);
 	}
@@ -39,7 +42,7 @@ int heap_extract(heap_t **root)
 		last_leaf->n = tmp_data;
 		if (del_leaf->parent->left == del_leaf)
 			del_leaf->parent->left = NULL;
-		else
+		else if (del_leaf->parent->right == del_leaf)
 			del_leaf->parent->right = NULL;
 		free(del_leaf);
 	}
