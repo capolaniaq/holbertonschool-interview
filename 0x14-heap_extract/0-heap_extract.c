@@ -22,9 +22,11 @@ int heap_extract(heap_t **root)
 
 	if (last_leaf == del_leaf)
 	{
-		last_leaf->parent->left = NULL;
-		last_leaf->parent->right = NULL;
-		free(last_leaf);
+		if (del_leaf->parent->left == del_leaf)
+			del_leaf->parent->left = NULL;
+		else
+			del_leaf->parent->right = NULL;
+		free(del_leaf);
 	}
 	else
 	{
