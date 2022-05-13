@@ -13,13 +13,12 @@ int heap_extract(heap_t **root)
 	heap_t *del_leaf = NULL;
 	heap_t *last_leaf = NULL;
 
-	if (*root == NULL)
+	if (*root == NULL )
 		return (0);
 
 	data = (*root)->n;
 	if ((*root)->left == NULL && (*root)->right == NULL)
 	{
-		free(*root);
 		return (data);
 	}
 
