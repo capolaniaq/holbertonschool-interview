@@ -9,17 +9,35 @@
 
 int heap_extract(heap_t **root)
 {
-	int data;
+	int data, tmp_data;
+	heap_t *del_leaf = NULL;
+	heap_t *last_leaf = NULL;
 
 	if (!root || !*root)
 		return (0);
 
 	data = (*root)->n;
-	sort_values(root);
+	last_leaf = sort_values(root);
+	del_leaf = find_last_leaf(root);
 
+	if (last_leaf == del_leaf)
+	{
+		last_leaf->parent->left = NULL;
+		last_leaf->parent->right = NULL;
+		free(last_leaf);
+	}
+	else
+	{
+		tmp_data = del_leaf->n;
+		last_leaf->n = tmp_data;
+		if (del_leaf->parent->left == del_leaf)
+			del_leaf->parent->left = NULL;
+		else
+			del_leaf->parent->right = NULL;
+		free(del_leaf);
+	}
 	return (data);
 }
-
 
 /**
  * sort_values - sorts the values of a heap
@@ -28,75 +46,68 @@ int heap_extract(heap_t **root)
  * Return: void
  */
 
-void *sort_values(heap_t **root)
+heap_t *sort_values(heap_t **root)
 {
 	heap_t *tmp;
 	int value;
 
 	tmp = *root;
-	if (tmp->left == NULL && tmp->right == NULL)
-		find_last_leaf(root, tmp);
 
-	if (tmp->left && tmp->right)
+	if (tmp->left != NULL && tmp->right != NULL)
 	{
 		if (tmp->left->n >= tmp->right->n)
 		{
 			value = tmp->left->n;
 			tmp->left->n = tmp->n;
 			tmp->n = value;
-			sort_values(&tmp->left);
+			return (sort_values(&tmp->left));
 		}
 		else
 		{
 			value = tmp->right->n;
 			tmp->right->n = tmp->n;
 			tmp->n = value;
-			sort_values(&tmp->right);
+			return (sort_values(&tmp->right));
 		}
 	}
-	else if (tmp->left)
+	else if (tmp->left != NULL && tmp->right == NULL)
 	{
 		value = tmp->left->n;
 		tmp->left->n = tmp->n;
 		tmp->n = value;
-		sort_values(&tmp->left);
+		return (tmp->left);
 	}
-	else if (tmp->right)
-	{
-		value = tmp->right->n;
-		tmp->right->n = tmp->n;
-		tmp->n = value;
-		sort_values(&tmp->right);
-	}
-	return (NULL);
+	return (tmp);
 }
 
 
 /**
  * find_last_leaf - finds the last leaf of a heap
  *@root: pointer to the root of the heap
- *@leaf: pointer to the leaf of the heap
  *
  * Return: void
  */
 
-void *find_last_leaf(heap_t **root, heap_t *leaf)
+heap_t *find_last_leaf(heap_t **root)
 {
 	heap_t *tmp;
 	size_t lenght_right, lenght_left;
 
 	tmp = *root;
 
-	if (tmp->left == NULL && tmp->right == NULL)
-		del_node(root, tmp, leaf);
+	if (tmp->left != NULL && tmp->right != NULL)
+	{
+		lenght_right = binary_tree_height(&tmp->right);
+		lenght_left = binary_tree_height(&tmp->left);
 
-	lenght_right = binary_tree_height(&tmp->right);
-	lenght_left = binary_tree_height(&tmp->left);
-	if (lenght_left > lenght_right)
-		find_last_leaf(&tmp->left, leaf);
-	else
-		find_last_leaf(&tmp->right, leaf);
-	return (NULL);
+		if (lenght_left > lenght_right)
+			return (find_last_leaf(&tmp->left));
+		else
+			return (find_last_leaf(&tmp->right));
+	}
+	else if (tmp->left != NULL && tmp->right == NULL)
+		return (tmp->left);
+	return (tmp);
 }
 
 
@@ -126,43 +137,4 @@ size_t binary_tree_height(heap_t **root)
 		return (height_left);
 	else
 		return (height_right);
-}
-
-
-/**
- * del_node - deletes a node from a heap
- * @root: pointer to the root of the heap
- * @leaf: pointer to the leaf of the heap
- *
- * Return: void
- */
-void del_node(heap_t **root, heap_t *node, heap_t *leaf)
-{
-	heap_t *tmp;
-	int tmp_data;
-
-	tmp = node;
-
-	printf("leaf-> =  %d\n", leaf->n);
-	printf("tmp->n = %d\n", tmp->n);
-	if (tmp == leaf)
-	{
-		printf("tmp->n = %d\n", tmp->n);
-		tmp->parent->left = NULL;
-		tmp->parent = NULL;
-		free(tmp);
-		binary_tree_print(*root);
-		return;
-	}
-	else
-	{
-		tmp_data = leaf->n;
-		tmp->n = tmp_data;
-		if (leaf->parent->left == leaf)
-			leaf->parent->left = NULL;
-		else
-			leaf->parent->right = NULL;
-		free(leaf);
-		return;
-	}
 }
