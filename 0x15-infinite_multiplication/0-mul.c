@@ -1,4 +1,5 @@
 #include "holberton.h"
+#include <stdlib.h>
 
 /**
  * main - multiplies two numbers
@@ -12,7 +13,7 @@
 int main(int argc, char const *argv[])
 {
 	int mul = 0;
-	int num1, num2;
+	char num1, num2;
 
 	if (argc != 3)
 	{
@@ -25,19 +26,19 @@ int main(int argc, char const *argv[])
 		exit(98);
 	}
 
-	num1 = atoi(argv[1]);
-	num2 = atoi(argv[2]);
+	num1 = argv[1];
+	num2 = argv[2];
 
 	mul = num1 * num2;
 
 	if (mul % 10 == 0)
 	{
-		print(mul);
+		_printf_to_mul(mul);
 		_putchar('0');
 	}
 	else
 	{
-		print(mul);
+		_printf_to_mul(mul);
 	}
 	_putchar('\n');
 
@@ -50,7 +51,7 @@ int main(int argc, char const *argv[])
  * Return: void
  */
 
-void print(int mul)
+void _printf_to_mul(int mul)
 {
 	int rev = 0;
 

@@ -2,6 +2,6 @@
 #define _HOLBERTON_H_
 
 int _putchar(char c);
-void print(int mul);
+void _printf_to_mul(int mul);
 
 #endif
