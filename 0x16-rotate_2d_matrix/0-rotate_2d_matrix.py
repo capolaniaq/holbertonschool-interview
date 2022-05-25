@@ -17,8 +17,8 @@ def rotate_2d_matrix(matrix):
         for j in range(i, n - i - 1):
 
             top_left = matrix[i][j]
-            top_right = matrix[j][n - 1- i]
-            down_right = matrix[n - 1- i][n - 1 - j]
+            top_right = matrix[j][n - 1 - i]
+            down_right = matrix[n - 1 - i][n - 1 - j]
             down_left = matrix[n - 1 - j][i]
             matrix[i][j] = down_left
             matrix[j][n - 1 - i] = top_left
