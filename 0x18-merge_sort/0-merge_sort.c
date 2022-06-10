@@ -13,7 +13,7 @@ void merge_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-	merge(array, size, 0, size - 1);
+	//merge(array, size, 0, size - 1);
 }
 
 /**
@@ -26,12 +26,9 @@ void merge_sort(int *array, size_t size)
  * Return: void
  */
 
-void merge(int *array, size_t size, size_t start, size_t end)
+/*void merge(int *array, size_t size, size_t start, size_t end)
 {
-	size_t middle = 0;
-	int *tmp = NULL;
 
-	
 
-}
+}*/
 
