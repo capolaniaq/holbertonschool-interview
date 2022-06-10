@@ -9,7 +9,6 @@
 
 void print_array(int *array, int size);
 void merge_sort(int *array, size_t size);
-//void merge(int *array, size_t size, size_t start, size_t end);
 
 
 
