@@ -20,12 +20,12 @@ def makeChange(coins, total):
     count_number = 0
     i = 0
     while i < len(coins):
-        if number > total:
-            return -1
         if number + coins[i] <= total:
             number += coins[i]
             count_number += 1
         else:
             i += 1
 
+    if number != total:
+        return -1
     return count_number
