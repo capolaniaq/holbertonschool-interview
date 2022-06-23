@@ -3,8 +3,6 @@
 make change
 """
 
-from audioop import reverse
-
 
 def makeChange(coins, total):
     """
