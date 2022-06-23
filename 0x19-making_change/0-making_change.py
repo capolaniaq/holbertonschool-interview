@@ -28,4 +28,5 @@ def makeChange(coins, total):
 
     if number != total:
         return -1
+
     return count_number
