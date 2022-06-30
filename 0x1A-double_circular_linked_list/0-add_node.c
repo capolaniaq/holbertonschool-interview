@@ -25,12 +25,12 @@ List *add_node_end(List **list, char *str)
 	if (tmp == NULL)
 	{
 		*list = new_node;
-		new_node->next = NULL;
-		new_node->prev = NULL;
+		new_node->next = new_node;
+		new_node->prev = new_node;
 		return (new_node);
 	}
 	firts_str = tmp->str;
-	if (tmp->next == NULL)
+	if (tmp->next == tmp)
 	{
 		tmp->next = new_node;
 		tmp->prev = new_node;
@@ -74,12 +74,12 @@ List *add_node_begin(List **list, char *str)
 	if (tmp == NULL)
 	{
 		*list = new_node;
-		new_node->next = NULL;
-		new_node->prev = NULL;
+		new_node->next = new_node;
+		new_node->prev = new_node;
 		return (new_node);
 	}
 	firts_str = tmp->str;
-	if (tmp->next == NULL)
+	if (tmp->next == tmp)
 	{
 		new_node->next = tmp;
 		new_node->prev = tmp;
