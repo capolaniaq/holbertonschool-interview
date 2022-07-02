@@ -12,7 +12,6 @@ List *add_node_end(List **list, char *str)
 	List *new_node = NULL;
 	List *tmp = NULL;
 	List *firts_tmp = *list;
-	char *tmp_str = str;
 	char *firts_str = NULL;
 
 	if (list == NULL)
@@ -20,7 +19,7 @@ List *add_node_end(List **list, char *str)
 	new_node = malloc(sizeof(List));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->str = tmp_str;
+	new_node->str = strdup(str);
 	tmp = *list;
 	if (tmp == NULL)
 	{
@@ -61,7 +60,6 @@ List *add_node_begin(List **list, char *str)
 	List *new_node = NULL;
 	List *tmp = NULL;
 	List *firts_tmp = *list;
-	char *tmp_str = str;
 	char *firts_str;
 
 	if (list == NULL)
@@ -69,7 +67,7 @@ List *add_node_begin(List **list, char *str)
 	new_node = malloc(sizeof(List));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->str = tmp_str;
+	new_node->str = strdup(str);
 	tmp = *list;
 	if (tmp == NULL)
 	{
