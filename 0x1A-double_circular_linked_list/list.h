@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 
 /**
  * struct List - doubly linked list
@@ -24,6 +24,6 @@ struct List *next;
 
 List *add_node_end(List **list, char *str);
 List *add_node_begin(List **list, char *str);
-void print_list(List *list);
+
 
 #endif
