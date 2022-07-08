@@ -56,7 +56,6 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 				tmp_2 = array[j - 1] / fact;
 				tmp_2 = tmp_2 % 10;
 			}
-
 			if (tmp_1 < tmp_2)
 			{
 				tmp = array[j];
@@ -68,11 +67,9 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 		}
 
 	}
-
 	if (idx == 1)
 	{
 		print_array(array, size);
 		sort_radix_split(array, size, unist + 1, 1);
 	}
-
 }
