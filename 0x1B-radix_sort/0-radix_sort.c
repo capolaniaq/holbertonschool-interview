@@ -52,7 +52,9 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 			else
 			{
 				tmp_1 = array[j] / fact;
+				tmp_1 = tmp_1 % 10;
 				tmp_2 = array[j - 1] / fact;
+				tmp_2 = tmp_2 % 10;
 			}
 
 			if (tmp_1 < tmp_2)
