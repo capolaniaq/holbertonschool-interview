@@ -35,10 +35,11 @@ void radix_sort(int *array, size_t size)
 void sort_radix_split(int *array, size_t size, int unist, int idx)
 {
 	size_t i, j;
-	int tmp_1, tmp_2, tmp;
-
+	int tmp_1, tmp_2, tmp, fact = 1, k;
 
 	idx = 0;
+	for (k = 0; k < unist; k++)
+		fact = fact * 10;
 	for (i = 0; i < size; i++)
 	{
 		for (j = i; j > 0; j--)
@@ -50,10 +51,8 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 			}
 			else
 			{
-				tmp_1 = array[j] * 10;
-				tmp_2 = array[j - 1] * 10;
-				if (tmp_1 > idx || tmp_2 > idx)
-					idx = 1;
+				tmp_1 = array[j] / fact;
+				tmp_2 = array[j - 1] / fact;
 			}
 
 			if (tmp_1 < tmp_2)
@@ -61,15 +60,17 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 				tmp = array[j];
 				array[j] = array[j - 1];
 				array[j - 1] = tmp;
+				idx = 1;
 			}
 
 		}
 
 	}
 
-	print_array(array, size);
-
-	if (idx == 0)
+	if (idx == 1)
+	{
+		print_array(array, size);
 		sort_radix_split(array, size, unist + 1, 1);
+	}
 
 }
