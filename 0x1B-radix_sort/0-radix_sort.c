@@ -56,14 +56,14 @@ void sort_radix_split(int *array, size_t size, int unist, int idx)
 				tmp_2 = array[j - 1] / fact;
 				tmp_2 = tmp_2 % 10;
 			}
+			if (tmp_1 > 0 || tmp_2 > 0)
+				idx = 1;
 			if (tmp_1 < tmp_2)
 			{
 				tmp = array[j];
 				array[j] = array[j - 1];
 				array[j - 1] = tmp;
-				idx = 1;
 			}
-
 		}
 
 	}
