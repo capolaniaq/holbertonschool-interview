@@ -16,28 +16,26 @@ def island_perimeter(grid):
     Return:
         perimeter of the island is the grid
     """
+
     perimeter = 0
     for i, row in enumerate(grid):
-        for j, land in enumerate(row):
-            if land == 1:
-                if i == 0:
-                    perimeter += 1
-                elif grid[i - 1][j] == 0:
-                    perimeter += 1
-                if i < len(grid) - 1:
+        for j, frame in enumerate(row):
+            if frame == 1:
+                if i == 0 or i == len(row) - 1:
+                    perimeter +=1
+                if j == 0 or j == len(row) - 1:
+                    perimeter +=1
+                if i != len(row) - 1:
                     if grid[i + 1][j] == 0:
-                        perimeter += 1
-                else:
-                    perimeter += 1
+                        perimeter +=1
+                if j != len(row) - 1:
+                    if grid[i][j + 1] == 0:
+                        perimeter +=1
                 if j != 0:
                     if grid[i][j - 1] == 0:
-                        perimeter += 1
-                else:
-                    perimeter += 1
-                if j < len(row) - 1:
-                    if grid[i][j + 1] == 0:
-                        perimeter += 1
-                else:
-                    perimeter += 1
+                        perimeter +=1
+                if i != 0:
+                    if grid[i - 1][j] == 0:
+                        perimeter +=1
 
     return perimeter
