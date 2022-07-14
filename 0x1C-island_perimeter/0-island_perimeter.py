@@ -16,8 +16,6 @@ def island_perimeter(grid):
     Return:
         perimeter of the island is the grid
     """
-    if len(grid) == 0:
-        return 0
     perimeter = 0
     for i, row in enumerate(grid):
         for j, frame in enumerate(row):
