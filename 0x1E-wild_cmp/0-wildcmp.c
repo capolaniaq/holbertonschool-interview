@@ -1,5 +1,12 @@
 #include "holberton.h"
 
+/**
+ * wildcmp - compare two strings with special character
+ * *, that is void or any string
+ * @s1: pointer to first char
+ * @s2: pointer to second char
+ * Return: int 1 in case sucessfull
+ */
 
 int wildcmp(char *s1, char *s2)
 {
